@@ -1,0 +1,1 @@
+- [Skills catalog pattern](skills-catalog.md) — skills have own catalog table (migration 0010); member_skills stores free text; PUT /members/:id/skills bulk-replaces preserving existing levels by name match.

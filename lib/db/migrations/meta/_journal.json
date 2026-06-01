@@ -1,0 +1,118 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1779713253258,
+      "tag": "0000_spicy_shadow_king",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1779713254258,
+      "tag": "0001_add_position_id",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1779713255258,
+      "tag": "0002_rename_employee_to_member",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1779713256258,
+      "tag": "0003_org_members_junction",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1779813257258,
+      "tag": "0004_org_members_fk_cascade",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1779900000000,
+      "tag": "0005_rename_to_teams",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1779990000000,
+      "tag": "0006_member_phone_linkedin_hobbies_functions",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1780090000000,
+      "tag": "0007_member_links",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1780200000000,
+      "tag": "0008_member_full_name",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1780200000001,
+      "tag": "0009_aberrant_chameleon",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1780300000000,
+      "tag": "0010_skills_catalog",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1780400000000,
+      "tag": "0011_hobby_icon",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1780500000000,
+      "tag": "0012_member_communication_urls",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1780600000000,
+      "tag": "0013_team_allowed_domains",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1780700000000,
+      "tag": "0014_invitations_table",
+      "breakpoints": true
+    },
+    {
+      "idx": 15,
+      "version": "7",
+      "when": 1780800000000,
+      "tag": "0015_member_hobby_custom_names",
+      "breakpoints": true
+    }
+  ]
+}

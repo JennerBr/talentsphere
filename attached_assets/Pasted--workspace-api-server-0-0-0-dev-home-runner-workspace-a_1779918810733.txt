@@ -1,0 +1,59 @@
+
+> @workspace/api-server@0.0.0 dev /home/runner/workspace/artifacts/api-server
+> export NODE_ENV=development && pnpm run build && pnpm run start
+
+
+> @workspace/api-server@0.0.0 build /home/runner/workspace/artifacts/api-server
+> node ./build.mjs
+
+
+  dist/index.mjs                       3.0mb ⚠️
+  dist/pino-worker.mjs               153.4kb
+  dist/pino-file.mjs                 142.1kb
+  dist/pino-pretty.mjs               114.6kb
+  dist/thread-stream-worker.mjs        7.3kb
+  dist/index.mjs.map                   5.5mb
+  dist/pino-worker.mjs.map           256.9kb
+  dist/pino-file.mjs.map             229.0kb
+  dist/pino-pretty.mjs.map           204.0kb
+  dist/thread-stream-worker.mjs.map   12.0kb
+
+⚡ Done in 422ms
+
+> @workspace/api-server@0.0.0 start /home/runner/workspace/artifacts/api-server
+> node --enable-source-maps ./dist/index.mjs
+
+[21:35:14.901] ERROR (7085): Failed to run database migrations
+    err: {
+      "type": "_DrizzleQueryError",
+      "message": "Failed query: CREATE TABLE \"hobby_categories\" (\n\"id\" serial PRIMARY KEY NOT NULL,\n\"name\" text NOT NULL\n);\n\nparams: : relation \"hobby_categories\" already exists",
+      "stack":
+          Error: Failed query: CREATE TABLE "hobby_categories" (
+          "id" serial PRIMARY KEY NOT NULL,
+          "name" text NOT NULL
+          );
+          
+          params: 
+              at NodePgPreparedQuery.queryWithCache (/home/runner/workspace/node_modules/.pnpm/drizzle-orm@0.45.2_@types+pg@8.20.0_pg@8.20.0/node_modules/src/pg-core/session.ts:73:11)
+              at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+              at async <anonymous> (/home/runner/workspace/node_modules/.pnpm/drizzle-orm@0.45.2_@types+pg@8.20.0_pg@8.20.0/node_modules/src/pg-core/dialect.ts:102:7)
+              at async _NodePgSession.transaction (/home/runner/workspace/node_modules/.pnpm/drizzle-orm@0.45.2_@types+pg@8.20.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:259:19)
+              at async PgDialect.migrate (/home/runner/workspace/node_modules/.pnpm/drizzle-orm@0.45.2_@types+pg@8.20.0_pg@8.20.0/node_modules/src/pg-core/dialect.ts:95:3)
+              at async migrate (/home/runner/workspace/node_modules/.pnpm/drizzle-orm@0.45.2_@types+pg@8.20.0_pg@8.20.0/node_modules/src/node-postgres/migrator.ts:10:2)
+              at async runMigrations (/home/runner/workspace/lib/db/src/migrate.ts:17:3)
+          caused by: error: relation "hobby_categories" already exists
+              at <anonymous> (/home/runner/workspace/node_modules/.pnpm/pg@8.20.0/node_modules/pg/lib/client.js:631:17)
+              at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+              at async <anonymous> (/home/runner/workspace/node_modules/.pnpm/drizzle-orm@0.45.2_@types+pg@8.20.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:149:14)
+              at async NodePgPreparedQuery.queryWithCache (/home/runner/workspace/node_modules/.pnpm/drizzle-orm@0.45.2_@types+pg@8.20.0_pg@8.20.0/node_modules/src/pg-core/session.ts:71:12)
+              at async <anonymous> (/home/runner/workspace/node_modules/.pnpm/drizzle-orm@0.45.2_@types+pg@8.20.0_pg@8.20.0/node_modules/src/pg-core/dialect.ts:102:7)
+              at async _NodePgSession.transaction (/home/runner/workspace/node_modules/.pnpm/drizzle-orm@0.45.2_@types+pg@8.20.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:259:19)
+              at async PgDialect.migrate (/home/runner/workspace/node_modules/.pnpm/drizzle-orm@0.45.2_@types+pg@8.20.0_pg@8.20.0/node_modules/src/pg-core/dialect.ts:95:3)
+              at async migrate (/home/runner/workspace/node_modules/.pnpm/drizzle-orm@0.45.2_@types+pg@8.20.0_pg@8.20.0/node_modules/src/node-postgres/migrator.ts:10:2)
+              at async runMigrations (/home/runner/workspace/lib/db/src/migrate.ts:17:3)
+      "query": "CREATE TABLE \"hobby_categories\" (\n\"id\" serial PRIMARY KEY NOT NULL,\n\"name\" text NOT NULL\n);\n",
+      "params": []
+    }
+ ELIFECYCLE  Command failed with exit code 1.
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @workspace/api-server@0.0.0 dev: `export NODE_ENV=development && pnpm run build && pnpm run start`
+Exit status 1

@@ -1,0 +1,1194 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: API specification
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: teams
+    description: Team operations
+  - name: positions
+    description: Position operations
+  - name: members
+    description: Member operations
+  - name: projects
+    description: Project operations
+  - name: absenceTypes
+    description: Absence type operations
+  - name: skillCategories
+    description: Skill category operations
+  - name: hobbies
+    description: Hobby catalog operations
+  - name: hobbyCategories
+    description: Hobby category operations
+  - name: functions
+    description: Function catalog operations
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /teams:
+    post:
+      operationId: createTeam
+      tags: [teams]
+      summary: Create a team
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TeamInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Team"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /teams/{id}:
+    put:
+      operationId: updateTeam
+      tags: [teams]
+      summary: Update a team
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TeamInput"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Team"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    delete:
+      operationId: deleteTeam
+      tags: [teams]
+      summary: Delete a team
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Deleted
+
+  /positions:
+    post:
+      operationId: createPosition
+      tags: [positions]
+      summary: Create a position
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PositionInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Position"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /positions/{id}:
+    put:
+      operationId: updatePosition
+      tags: [positions]
+      summary: Update a position
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PositionInput"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Position"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    delete:
+      operationId: deletePosition
+      tags: [positions]
+      summary: Delete a position
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Deleted
+
+  /members:
+    post:
+      operationId: createMember
+      tags: [members]
+      summary: Create a member
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MemberInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Member"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /members/{id}:
+    put:
+      operationId: updateMember
+      tags: [members]
+      summary: Update a member
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MemberInput"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Member"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    delete:
+      operationId: deleteMember
+      tags: [members]
+      summary: Delete a member
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Deleted
+
+  /hobbies:
+    get:
+      operationId: listHobbies
+      tags: [hobbies]
+      summary: List all hobbies
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Hobby"
+    post:
+      operationId: createHobby
+      tags: [hobbies]
+      summary: Create a hobby
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/HobbyInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Hobby"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /hobbies/{id}:
+    delete:
+      operationId: deleteHobby
+      tags: [hobbies]
+      summary: Delete a hobby
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Deleted
+
+  /hobby-categories:
+    get:
+      operationId: listHobbyCategories
+      tags: [hobbyCategories]
+      summary: List all hobby categories
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/HobbyCategory"
+    post:
+      operationId: createHobbyCategory
+      tags: [hobbyCategories]
+      summary: Create a hobby category
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/HobbyCategoryInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HobbyCategory"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /hobby-categories/{id}:
+    delete:
+      operationId: deleteHobbyCategory
+      tags: [hobbyCategories]
+      summary: Delete a hobby category
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Deleted
+
+  /members/{id}/hobbies:
+    get:
+      operationId: getMemberHobbies
+      tags: [members]
+      summary: Get hobbies for a member
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Hobby"
+    put:
+      operationId: updateMemberHobbies
+      tags: [members]
+      summary: Replace all hobbies for a member
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ids:
+                  type: array
+                  items:
+                    type: integer
+                  description: IDs of catalog hobbies to assign
+                customNames:
+                  type: array
+                  items:
+                    type: string
+                  description: Free-text hobby names not in the catalog
+              required: [ids, customNames]
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Hobby"
+
+  /functions:
+    get:
+      operationId: listFunctions
+      tags: [functions]
+      summary: List all functions
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MemberFunctionItem"
+
+  /members/{id}/functions:
+    get:
+      operationId: getMemberFunctions
+      tags: [members]
+      summary: Get functions for a member
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MemberFunctionItem"
+    put:
+      operationId: updateMemberFunctions
+      tags: [members]
+      summary: Replace all functions for a member
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                functionIds:
+                  type: array
+                  items:
+                    type: integer
+              required: [functionIds]
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MemberFunctionItem"
+
+  /members/{id}/skills:
+    post:
+      operationId: addMemberSkill
+      tags: [members]
+      summary: Add a skill to a member
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MemberSkillInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MemberSkill"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /members/{id}/skills/{skillId}:
+    delete:
+      operationId: deleteMemberSkill
+      tags: [members]
+      summary: Delete a member skill
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - name: skillId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /projects:
+    post:
+      operationId: createProject
+      tags: [projects]
+      summary: Create a project
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProjectInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /projects/{id}:
+    put:
+      operationId: updateProject
+      tags: [projects]
+      summary: Update a project
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProjectInput"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    delete:
+      operationId: deleteProject
+      tags: [projects]
+      summary: Delete a project
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Deleted
+
+  /absence-types:
+    post:
+      operationId: createAbsenceType
+      tags: [absenceTypes]
+      summary: Create an absence type
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AbsenceTypeInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AbsenceType"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /absence-types/{id}:
+    put:
+      operationId: updateAbsenceType
+      tags: [absenceTypes]
+      summary: Update an absence type
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AbsenceTypeInput"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AbsenceType"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    delete:
+      operationId: deleteAbsenceType
+      tags: [absenceTypes]
+      summary: Delete an absence type
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Deleted
+
+  /members/{id}/links:
+    get:
+      operationId: getMemberLinks
+      tags: [members]
+      summary: List member links ordered by sort_order
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MemberLink"
+    post:
+      operationId: createMemberLink
+      tags: [members]
+      summary: Add a link to a member profile
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MemberLinkInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MemberLink"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /members/{id}/links/reorder:
+    patch:
+      operationId: reorderMemberLinks
+      tags: [members]
+      summary: Reorder member links
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MemberLinksReorderInput"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MemberLink"
+
+  /members/{id}/links/{linkId}:
+    delete:
+      operationId: deleteMemberLink
+      tags: [members]
+      summary: Remove a link from a member profile
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - name: linkId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /skill-categories:
+    post:
+      operationId: createSkillCategory
+      tags: [skillCategories]
+      summary: Create a skill category
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SkillCategoryInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SkillCategory"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /skill-categories/{id}:
+    put:
+      operationId: updateSkillCategory
+      tags: [skillCategories]
+      summary: Update a skill category
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SkillCategoryInput"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SkillCategory"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    delete:
+      operationId: deleteSkillCategory
+      tags: [skillCategories]
+      summary: Delete a skill category
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Deleted
+
+components:
+  parameters:
+    IdParam:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
+
+    Team:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        logo:
+          type: string
+          nullable: true
+        cnpj:
+          type: string
+          nullable: true
+        status:
+          type: string
+          nullable: true
+      required: [id, name]
+
+    TeamInput:
+      type: object
+      properties:
+        name:
+          type: string
+        logo:
+          type: string
+          nullable: true
+        cnpj:
+          type: string
+          nullable: true
+        status:
+          type: string
+          nullable: true
+      required: [name]
+
+    Position:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        chairs:
+          type: integer
+        allocated:
+          type: integer
+        parentId:
+          type: integer
+          nullable: true
+        organizacaoId:
+          type: integer
+        createdBy:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          nullable: true
+      required: [id, name, chairs, allocated, organizacaoId]
+
+    PositionInput:
+      type: object
+      properties:
+        name:
+          type: string
+        chairs:
+          type: integer
+        allocated:
+          type: integer
+        parentId:
+          type: integer
+          nullable: true
+        organizacaoId:
+          type: integer
+        createdBy:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          nullable: true
+      required: [name, organizacaoId]
+
+    Member:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        fullName:
+          type: string
+          nullable: true
+        role:
+          type: string
+          nullable: true
+        seniority:
+          type: string
+          nullable: true
+        project:
+          type: string
+          nullable: true
+        turma:
+          type: string
+          nullable: true
+        skills:
+          type: array
+          items:
+            type: string
+          nullable: true
+        email:
+          type: string
+          nullable: true
+        avatar:
+          type: string
+          nullable: true
+        birthday:
+          type: string
+          nullable: true
+        contractDate:
+          type: string
+          nullable: true
+        availableKudos:
+          type: integer
+          nullable: true
+        organizacaoId:
+          type: integer
+          nullable: true
+        phone:
+          type: string
+          nullable: true
+        linkedin:
+          type: string
+          nullable: true
+      required: [id, name]
+
+    MemberInput:
+      type: object
+      properties:
+        name:
+          type: string
+        fullName:
+          type: string
+          nullable: true
+        role:
+          type: string
+          nullable: true
+        seniority:
+          type: string
+          nullable: true
+        project:
+          type: string
+          nullable: true
+        turma:
+          type: string
+          nullable: true
+        skills:
+          type: array
+          items:
+            type: string
+          nullable: true
+        email:
+          type: string
+          nullable: true
+        avatar:
+          type: string
+          nullable: true
+        birthday:
+          type: string
+          nullable: true
+        contractDate:
+          type: string
+          nullable: true
+        availableKudos:
+          type: integer
+          nullable: true
+        organizacaoId:
+          type: integer
+          nullable: true
+        phone:
+          type: string
+          nullable: true
+        linkedin:
+          type: string
+          nullable: true
+      required: [name]
+
+    Hobby:
+      type: object
+      properties:
+        id:
+          type: integer
+          nullable: true
+        name:
+          type: string
+        categoryId:
+          type: integer
+          nullable: true
+        categoryName:
+          type: string
+          nullable: true
+        icon:
+          type: string
+          nullable: true
+        customName:
+          type: string
+          nullable: true
+          description: Non-null for free-text hobbies that are not in the catalog
+      required: [name]
+
+    HobbyInput:
+      type: object
+      properties:
+        name:
+          type: string
+        categoryId:
+          type: integer
+          nullable: true
+      required: [name]
+
+    HobbyCategory:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+      required: [id, name]
+
+    HobbyCategoryInput:
+      type: object
+      properties:
+        name:
+          type: string
+      required: [name]
+
+    MemberFunctionItem:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+      required: [id, name]
+
+    MemberSkill:
+      type: object
+      properties:
+        id:
+          type: integer
+        memberId:
+          type: integer
+        name:
+          type: string
+        type:
+          type: string
+          nullable: true
+        level:
+          type: string
+          nullable: true
+        desired:
+          type: string
+          nullable: true
+      required: [id, memberId, name]
+
+    MemberSkillInput:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+          nullable: true
+        level:
+          type: string
+          nullable: true
+        desired:
+          type: string
+          nullable: true
+      required: [name]
+
+    Project:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        organizacaoId:
+          type: integer
+          nullable: true
+        objective:
+          type: string
+          nullable: true
+        clients:
+          type: string
+          nullable: true
+        tools:
+          type: array
+          items:
+            type: string
+          nullable: true
+        team:
+          type: string
+          nullable: true
+        startDate:
+          type: string
+          nullable: true
+        endDate:
+          type: string
+          nullable: true
+        rating:
+          type: integer
+          nullable: true
+        status:
+          type: string
+          nullable: true
+        observation:
+          type: string
+          nullable: true
+        stakeholders:
+          type: array
+          items:
+            type: integer
+      required: [id, name]
+
+    ProjectInput:
+      type: object
+      properties:
+        name:
+          type: string
+        organizacaoId:
+          type: integer
+          nullable: true
+        objective:
+          type: string
+          nullable: true
+        clients:
+          type: string
+          nullable: true
+        tools:
+          type: array
+          items:
+            type: string
+          nullable: true
+        team:
+          type: string
+          nullable: true
+        startDate:
+          type: string
+          nullable: true
+        endDate:
+          type: string
+          nullable: true
+        rating:
+          type: integer
+          nullable: true
+        status:
+          type: string
+          nullable: true
+        observation:
+          type: string
+          nullable: true
+        stakeholders:
+          type: array
+          items:
+            type: integer
+      required: [name]
+
+    AbsenceType:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        color:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        type:
+          type: string
+          nullable: true
+        icon:
+          type: string
+          nullable: true
+      required: [id, name]
+
+    AbsenceTypeInput:
+      type: object
+      properties:
+        name:
+          type: string
+        color:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        type:
+          type: string
+          nullable: true
+        icon:
+          type: string
+          nullable: true
+      required: [name]
+
+    SkillCategory:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        descricao:
+          type: string
+          nullable: true
+        niveis:
+          type: integer
+          nullable: true
+        tipoGrafico:
+          type: string
+          nullable: true
+      required: [id, nome]
+
+    SkillCategoryInput:
+      type: object
+      properties:
+        nome:
+          type: string
+        descricao:
+          type: string
+          nullable: true
+        niveis:
+          type: integer
+          nullable: true
+        tipoGrafico:
+          type: string
+          nullable: true
+      required: [nome]
+
+    MemberLink:
+      type: object
+      properties:
+        id:
+          type: integer
+        memberId:
+          type: integer
+        url:
+          type: string
+        platform:
+          type: string
+        handle:
+          type: string
+          nullable: true
+        sortOrder:
+          type: integer
+        createdAt:
+          type: string
+          nullable: true
+      required: [id, memberId, url, platform, sortOrder]
+
+    MemberLinkInput:
+      type: object
+      properties:
+        url:
+          type: string
+      required: [url]
+
+    MemberLinksReorderInput:
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: integer
+      required: [ids]

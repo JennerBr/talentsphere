@@ -1,0 +1,82 @@
+Atue como um Engenheiro de Software Full-Stack Senior e Product Manager. O objetivo é criar a arquitetura, o banco de dados e a interface inicial de um aplicativo web (Chatbot e Dashboard) focado na gestão e desenvolvimento de talentos técnicos.
+
+O sistema servirá para que gestores gerenciem seus liderados através de uma interface de chat e painéis de controle, e para que os próprios liderados acompanhem seu desenvolvimento. O sistema deve ter autenticação e controle de acesso baseado em papéis (RBAC).
+
+Gestor ou liderados podem enviar audios para interagir com o sistema, para inserir ou recuperar dados.
+
+### 1. Módulos e Funcionalidades Principais
+
+* **Módulo de Administração (Admin):** * Interface para cadastro prévio de Liderados e Gestores.
+    * Associação de quais liderados respondem a quais gestores.
+    * Dados de remuneração do liderado:
+    * Grade, último mérito, % Reajuste.
+* Remuneração do mercado, cargo, grade.
+
+* **Módulo de Login:** * Acesso restrito para usuários previamente cadastrados no banco de dados.
+    * Redirecionamento dinâmico baseado no perfil (Gestor vs. Liderado).
+    
+* **Módulo do Gestor (Core):** * 
+* **Chatbot Inteligente:** Uma interface de chat onde o gestor pode fazer perguntas em linguagem natural sobre o time:
+*  exs: "Qual foi a nota de entrega do João no Projeto 3?", "Quais são os pontos a desenvolver da Maria no 9box?", "Mostre o perfil de Power Skills do Carlos"). "Quem na minha equipe conhece uma determinada task?"
+*O chat deve consultar o banco de dados e retornar as informações.
+*O gestor também pode usar  linguagem natural para:
+*  cadastrar uma ocorrência no logbook para um liberado. Ele pode ser um elogio ou uma correção.
+* Após incluir o logbook, se o gestor não informar no prompt, perguntar se ele quer marcar a nota como pendente de feedback.
+*   para falar com um liderado, ou para falar com todos ao mesmo tempo.
+* listar os logbooks em aberto
+* Dar baixa em uma anotação após o feedback.
+    * **Logbook e 1:1:** Uma área dedicada para preparar pautas, registrar anotações de reuniões de 1:1, definir tarefas e combinados (inspirado na metodologia de acompanhamento contínuo).
+
+    
+* **Visão do Liderado (Farol/Radar):** Painel consolidado com o perfil completo do liderado.
+* **Módulo do Liderado:** * Visualização do próprio perfil, histórico de projetos, PDI (Plano de Desenvolvimento Individual) e histórico consolidado do Logbook/1:1 com seu gestor.
+
+### 2. Modelo de Dados (Data Schema)
+
+O banco de dados (ex: PostgreSQL ou MongoDB) deve ser estruturado para suportar o seguinte schema de informações para cada liderado. Agrupe-os nas seguintes tabelas/entidades:
+
+**A. Informações Cadastrais e Corporativas:**
+* Nome completo, Email, Foto, Idade.
+* Turma, Coligada, Área Atual, Gestor Atual, Gestores Anteriores.
+* Cargo, Função, Nível, Especialização, Nível de Inglês.
+* Localização: Onde mora, Distância, Modalidade (Home Office).
+* Informações Pessoais: Hobbies, Música, Família, Primeiro Contato, Experiência.
+* (manter dados históricos para consulta)
+
+**B. Remuneração e Movimentações (Compensation):**
+* Valor do repasse
+
+
+
+**C. Histórico Acadêmico e de Projetos Técnicos:**
+* Notas 01, Notas 02.
+* 1º Ano da Escola: Disciplinas.
+* Projetos (Histórico de 1 a 13 - criar tabela relacional `Projetos` associada ao usuário): Nome do Projeto (Inter 1, Inter 2, TCC, Estágio, etc.), Clientes, Linguagens/Tech Stack, Equipe, Notas.
+* Backlog (1 a 09).
+
+**D. Entregas e Avaliação de Performance: (manter históricos)**
+* Gestor Avaliador, Nota (Estágio/Entrega), Rank, pontos a desenvolver, pontos fortes.
+* Avaliação de Entregas: Produtividade, Qualidade, Prazo.
+*
+**E. Mapeamento Comportamental e Metodologia (Inspirado em Talent Academy):**
+* **Talento (Personalidade de Jung):** Eixo Energia (Extrovertido/Introspectivo), Eixo Informação (Sensorial/Intuitivo), Eixo Decisão (Emocional/Racional), Eixo Estilo de Vida (Autodisciplinado/Multifocado).
+* **Potência (Dominância Cerebral):** % Experimental, % Analítico, % Prático, % Interpessoal.
+* **Motivação (Drivers):** Top 3 motivadores (ex: Autonomia, Especialização, Propósito).
+* **Power Skills (Competências Socioemocionais - 0 a 100%):** Autodisciplina, Protagonismo, Resiliência, Coerência, Autocontrole, Comunicação, Criatividade, Decisão, Empatia, Estratégia, Flexibilidade, Liderança, Mediação, Autodesenvolvimento, Colaboração.
+* **Soft Skills Qualitativas (Perguntas Abertas):** * Energia (O que dá mais energia/perde noção do tempo?)
+    * Criatividade (Problema sem solução clara que resolveu)
+    * Curiosidade (O que aprendeu recentemente por conta própria)
+    * Pensamento Crítico (Que erro ensinou mais que um acerto)
+    * Adaptabilidade (Situação em que mudou totalmente o plano)
+* **Carreira:** Seu Dream Team, Planos de Carreira, Empreende?, Paixão por TI, Quer mudar, Nova Área, Oportunidades, Ponto de Melhoria.
+
+**F. Entidade Logbook / 1:1:**
+* ID_Gestor, ID_Liderado, Data, Pauta_Sugerida, Anotacoes_Reuniao, Tarefas_Acordadas, Status.
+
+### 3. Stack Tecnológica Sugerida e Passos Iniciais
+* Frontend: Next.js (React) com Tailwind CSS e shadcn/ui.
+* Backend: Next.js API Routes ou Node.js/Express.
+* Banco de Dados: PostgreSQL (via Prisma ORM) ou Supabase.
+* IA do Chatbot: Integração com OpenAI API (GPT-4o) utilizando as ferramentas de "function calling" ou RAG para consultar o banco de dados dos liderados e responder ao gestor de forma conversacional.
+
+Por favor, inicie gerando a estrutura do banco de dados (schema.prisma ou tabelas SQL) considerando todas essas entidades para garantir que o modelo relacional suporte essa grande quantidade de dados, especialmente o histórico de projetos (1 a 13) e as avaliações comportamentais da Talent Academy.

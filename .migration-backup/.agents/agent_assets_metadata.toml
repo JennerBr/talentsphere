@@ -1,0 +1,8 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "Mh2cic1cRrOg61GylrHEw"
+uri = "file://artifacts/mockup-sandbox/public/images/login-split-bg.png"
+type = "image"
+title = "Abstract talent network visualization"

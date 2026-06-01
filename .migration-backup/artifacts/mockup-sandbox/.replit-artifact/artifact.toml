@@ -1,0 +1,10 @@
+kind = "design"
+previewPath = "/__mockup-backup/"
+title = "Mockup Sandbox"
+version = "1.0.0"
+id = "artifacts/mockup-sandbox"
+router = "path"
+
+[[integratedSkills]]
+name = "mockup-sandbox"
+version = "1.0.0"
